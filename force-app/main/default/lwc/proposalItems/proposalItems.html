@@ -1,0 +1,60 @@
+<!--<template>
+    <template if:true={proposalItems}>
+        <template for:each={proposalItems} for:item="item">
+            <div key={item.Id} class="slds-card slds-m-bottom_medium">
+                <div class="slds-card__header">
+                    <div class="slds-p-left_large">  1 tab indentation 
+                        <template if:false={item.isEditing}>
+                            <span class="slds-text-heading_small slds-truncate" ondblclick={enableEditing}
+                                data-id={item.Id} title={item.Name}>
+                                {item.Name}
+                            </span>
+                        </template>
+                        <template if:true={item.isEditing}>
+                            <lightning-input value={item.Name} data-id={item.Id} onchange={handleItemNameChange}
+                                onblur={saveItemName} variant="label-hidden" type="text"
+                                class="slds-input"></lightning-input>
+                        </template>
+                    </div>
+                </div>
+                <div class="slds-card__body slds-m-left_xx-large">
+                    <c-proposal-line-items proposal-item-id={item.Id}>
+                    </c-proposal-line-items>
+                </div>
+            </div>
+        </template>
+    </template>
+    <template if:true={error}>
+        <c-error-panel errors={error}></c-error-panel>
+    </template>
+</template> slds-m-bottom_xx-small slds-p-around_xxx-small-->
+
+<template>
+    <template if:true={proposalItems}>
+        <template for:each={proposalItems} for:item="item">
+            <lightning-card key={item.Id}>
+                <div class="slds-box">
+                    <!-- Custom Header  class="slds-card__header slds-grid slds-grid_align-spread slds-p-bottom_xxx-small"-->
+                    <div class="slds-card__header">
+                        <template if:false={item.isEditing}>
+                            <h1 class="slds-text-heading_medium slds-truncate" ondblclick={enableEditing}
+                                data-id={item.Id}>
+                                {item.Name}
+                            </h1>
+                        </template>
+                        <template if:true={item.isEditing}>
+                            <lightning-input value={item.Name} data-id={item.Id} variant="label-hidden" type="text"
+                                class="slds-size_small" onblur={saveItemName} onchange={handleItemNameChange}>
+                            </lightning-input>
+                        </template>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="slds-p-left_large">
+                        <c-proposal-line-items proposal-item-id={item.Id}></c-proposal-line-items>
+                    </div>
+                </div>
+            </lightning-card>
+        </template>
+    </template>
+</template>

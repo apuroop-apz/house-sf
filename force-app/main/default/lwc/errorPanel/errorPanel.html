@@ -1,0 +1,15 @@
+<template>
+    <template if:true={hasErrors}>
+        <div class="slds-notify slds-notify_alert slds-theme_error slds-m-vertical_small" role="alert">
+            <span class="slds-assistive-text">Error</span>
+            <h2 class="slds-text-heading_small slds-m-bottom_x-small">
+                Error occurred in {location}:
+            </h2>
+            <ul class="slds-list_dotted">
+                <template for:each={errors} for:item="err">
+                    <li key={err} class="slds-text-body_regular">{err}</li>
+                </template>
+            </ul>
+        </div>
+    </template>
+</template>

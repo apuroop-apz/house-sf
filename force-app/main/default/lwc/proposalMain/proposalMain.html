@@ -1,0 +1,18 @@
+<template>
+    <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+        <lightning-accordion-section name="Greeting" label="Greeting">
+            <c-proposal-greeting proposal-id={proposalId}></c-proposal-greeting>
+        </lightning-accordion-section>
+
+        <lightning-accordion-section name="Items" label="Proposal Items">
+            <c-proposal-items proposal-id={proposalId}></c-proposal-items>
+        </lightning-accordion-section>
+
+        <!-- Placeholder for Payments and Terms -->
+    </lightning-accordion>
+
+    <!--Display error message if there's an error -->
+    <template if:true={errors}>
+        <c-error-panel location="proposalMain Component" errors={errors}></c-error-panel>
+    </template>
+</template>

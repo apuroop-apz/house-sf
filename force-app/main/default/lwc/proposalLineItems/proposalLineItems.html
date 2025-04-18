@@ -1,0 +1,101 @@
+<template>
+    <template if:true={lineItems}>
+        <template for:each={lineItems} for:item="line">
+            <lightning-layout multiple-rows="true" key={line.Id} class="slds-box">
+                <lightning-layout-item size="12">
+                    <lightning-layout>
+                        <lightning-layout-item size="1" class="slds-float_left">
+                            <div class="slds-card__header-title">
+                                <div>
+                                    <lightning-button-icon icon-name={line.iconName}
+                                        alternative-text="Toggle Description" title="Toggle Description" size="small"
+                                        onclick={toggleLine} data-id={line.Id} class="slds-m-right_xx-small">
+                                    </lightning-button-icon>
+                                </div>
+                                <template if:true={line.isEditingName}>
+                                    <lightning-input value={line.Name} data-id={line.Id} onchange={handleNameChange}
+                                        onblur={onBlurName} variant="label-hidden">
+                                    </lightning-input>
+                                </template>
+                                <template if:false={line.isEditingName}>
+                                    <h2 ondblclick={editName} data-id={line.Id}
+                                        class="slds-align_absolute-center">
+                                        {line.Name}
+                                    </h2>
+                                </template>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2" class="slds-float_right">
+                            <lightning-button-icon icon-name="utility:chevronup" alternative-text="Move Up"
+                                title="Move Up" size="small" class="slds-m-right_xx-small">
+                                <label>Move Up</label>
+                            </lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:chevrondown" alternative-text="Move Down"
+                                title="Move Down" size="small" class="slds-m-right_xx-small">
+                                <label>Move Down</label>
+                            </lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:setup" alternative-text="More Actions"
+                                title="More Actions" size="small">
+                                <label>More Actions</label>
+                            </lightning-button-icon>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="6"></lightning-layout-item>
+                        <lightning-layout-item size="3">
+                            <lightning-layout>
+                                <lightning-layout-item size="3">
+                                    <div class="slds-grid slds-grid_vertical-align-center">
+                                        <span class="slds-card__header-title slds-m-right_x-small slds-float_left">Qty:
+                                        </span>
+                                        <lightning-input type="number" label=" " variant="label-hidden"
+                                            class="slds-m-horizontal_xx-small" value={line.Quantity__c}
+                                            data-id={line.Id} onchange={handleQuantityChange}>
+                                        </lightning-input>
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="2">
+                                    <div class="slds-card__header-title slds-align_absolute-center">×</div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="3">
+                                    <div class="slds-grid slds-grid_vertical-align-center">
+                                        <span
+                                            class="slds-card__header-title slds-m-right_x-small slds-float_left">Price:
+                                        </span>
+                                        <lightning-input type="number" label=" " variant="label-hidden"
+                                            class="slds-m-horizontal_xx-small" value={line.Unit_Price__c}
+                                            data-id={line.Id} onchange={handlePriceChange}>
+                                        </lightning-input>
+                                    </div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="2">
+                                    <div class="slds-card__header-title slds-align_absolute-center">=</div>
+                                </lightning-layout-item>
+                                <lightning-layout-item size="2">
+                                    <div class="slds-grid slds-float_right slds-p-top_xx-small slds-card__header-title">
+                                        <lightning-formatted-number value={line.Subtotal__c} format-style="currency"
+                                            currency-code="USD"> </lightning-formatted-number>
+                                    </div>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </lightning-layout-item>
+                    </lightning-layout>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <div class="slds-card__body">
+                        <template if:true={line.expanded}>
+                            <lightning-layout-item size="12">
+                                <div class="slds-card__body">
+                                    <lightning-input-rich-text value={line.Description__c} data-id={line.Id}
+                                        onchange={handleDescriptionChange}>
+                                    </lightning-input-rich-text>
+                                </div>
+                            </lightning-layout-item>
+                        </template>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </template>
+    <template if:true={errors}>
+        <c-error-panel errors={errors}></c-error-panel>
+    </template>
+</template>
